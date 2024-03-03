@@ -14,7 +14,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
       <Stack.Screen name="Home" component={MainLayOut}/>
-      <Stack.Screen name="MyMoviePlayer" component={VideoPlayer}/>
+      <Stack.Screen name="MyMoviePlayer" component={MoviePlayer}/>
       </Stack.Navigator>
    
 </NavigationContainer>
