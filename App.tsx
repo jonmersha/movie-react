@@ -6,6 +6,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import { MoviePlayer } from './src/features/Screens/movie_player';
 import { VideoPlayer } from './src/features/video-player';
+import PlayList from './src/components/list_video';
 
 const Stack = createNativeStackNavigator();
 

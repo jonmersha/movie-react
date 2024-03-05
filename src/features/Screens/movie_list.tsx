@@ -27,6 +27,8 @@ export const MovieList=()=>{
     try {
       const response = await fetch(`${baseURL}/movie/get`);
       
+      console.log(response)
+      
       
       const json = await response.json();
       console.log(json);

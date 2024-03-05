@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import {StarRatingDisplay} from 'react-native-star-rating-widget';
+import { baseURL } from '../utils/constants';
 
 interface CardProps {
     title:string;
@@ -24,7 +25,7 @@ const Card: React.FC<CardProps> = (
     is_series
 }) => (
   <View style={styles.card}>
-    <Image style={styles.image} source={{ uri: image_url }} />
+    <Image style={styles.image} source={{ uri: `${baseURL}${image_url}` }} />
     <View style={styles.cardContent}>
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.subtitle}>{movie_description}</Text>
