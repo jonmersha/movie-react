@@ -1,25 +1,45 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, View } from 'react-native';
 import { MainLayOut } from './src/layou';
-import { NavigationContainer } from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+//import { NavigationContainer } from '@react-navigation/native';
+//import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import { MoviePlayer } from './src/features/Screens/movie_player';
-import { VideoPlayer } from './src/features/video-player';
-import PlayList from './src/components/list_video';
+import * as ScreenOrientation from 'expo-screen-orientation';
+//import { createStackNavigator } from '@react-navigation/stack';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import MovieSeriesListPage from './src/components/series_movies_list';
+import { MovieSerie } from './src/components/series_list';
 
 const Stack = createNativeStackNavigator();
 
+//const Stack = createNativeStackNavigator();
+
 export default function App() {
+  function setOrientation() {
+    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
+}
+setOrientation();
   return (
-    <NavigationContainer>
+    <NavigationContainer >
       <Stack.Navigator>
-      <Stack.Screen name="Home" component={MainLayOut}/>
-      <Stack.Screen name="MyMoviePlayer" component={MoviePlayer}/>
+      <Stack.Screen 
+      name="Home" 
+      component={MainLayOut}
+      />
+      
+      <Stack.Screen 
+      name="MyMoviePlayer" 
+      component={MoviePlayer} 
+      options={{headerShown: false}}/>
+      <Stack.Screen 
+      name="MovieSeriesListPage" 
+      component={MovieSerie} 
+      options={{headerShown: false}}/>
+
       </Stack.Navigator>
-   
 </NavigationContainer>
-    
   );
 }
 
@@ -31,3 +51,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+

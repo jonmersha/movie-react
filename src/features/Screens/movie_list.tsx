@@ -4,7 +4,6 @@ import Card from "../../components/movie_card_component";
 import { baseURL } from "../../utils/constants";
 import { useNavigation } from "@react-navigation/native";
 
-
 interface MovieItem{
     ID:string;
     titile:string;
@@ -16,9 +15,7 @@ interface MovieItem{
     video_url:string;
     is_series:boolean;
 }
-export const MovieList=()=>{
-  const navigation = useNavigation();
-
+ export const MovieList=({navigation})=>{
     const [isLoading, setLoading,] = useState(true);
     const [refreshing, setRefreshing] = useState(false);
     const [data, setData] = useState<MovieItem[]>([]);
@@ -28,8 +25,7 @@ export const MovieList=()=>{
       const response = await fetch(`${baseURL}/movie/get`);
       
       console.log(response)
-      
-      
+
       const json = await response.json();
       console.log(json);
       setData(json);
@@ -52,13 +48,15 @@ export const MovieList=()=>{
     }, 1000); // Refresh indicator will be visible for at least 1 second
   };
   const handleItemPress = (item: MovieItem) => {
-    navigation.navigate('MyMoviePlayer', {VidoeURL: item.video_url});
+    console.log(item.video_url);
+    navigation.navigate('MovieSeriesListPage', {
+      paramKey: `${baseURL}${item.video_url}`,
+    })
+  // navigation.navigate();
   };
   const renderCard = ({ item }: { item: MovieItem }) => (
 
     <TouchableOpacity onPress={() => handleItemPress(item)}>
-
-    
     <Card
           title={item.titile}
           rating={item.rating}
@@ -113,3 +111,5 @@ const styles=StyleSheet.create({
         elevation:5
     }
 })
+
+//export default MovieList

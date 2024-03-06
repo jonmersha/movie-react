@@ -3,7 +3,7 @@ import {StyleSheet, View } from "react-native";
 import { Searchbar } from "react-native-paper";
 import { MovieList } from "./features/Screens/movie_list";
 
-export const MainLayOut=()=>{
+export const MainLayOut=({navigation})=>{
 
   const [searchQuery, setSearchQuery] = React.useState('');
     return(
@@ -17,7 +17,7 @@ export const MainLayOut=()=>{
         </Searchbar>
     </View>
     <View style={styles.body}>
-        <MovieList/>
+        <MovieList navigation={navigation} />
    
     </View>
     
