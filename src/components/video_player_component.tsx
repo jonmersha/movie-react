@@ -5,8 +5,13 @@ import { ResizeMode, Video } from 'expo-av';
 import { Ionicons, Feather, MaterialCommunityIcons } from '@expo/vector-icons';
 import * as ScreenOrientation from 'expo-screen-orientation';
 
-const VideoPlayer = () => {
-  const videoRef = useRef(null);
+const VideoPlayer = (
+  {
+    uri,
+    videoRef,
+    loading
+  }) => {
+ // const videoRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [likes, setLikes] = useState(0);
@@ -15,6 +20,7 @@ const VideoPlayer = () => {
   const [currentTime, setCurrentTime] = useState(0);
   const [totalDuration, setTotalDuration] = useState(0);
   const [isFullScreen, setIsFullScreen] = useState(true);
+  setIsLoading(loading);
 
   function setOrientation() {
     if (Dimensions.get('window').height > Dimensions.get('window').width) {
@@ -27,17 +33,10 @@ const VideoPlayer = () => {
       }
   }
 
-
   useEffect(() => {
     
     ScreenOrientation.getOrientationAsync().then((orientation) => {
-      //setIsFullScreen(isFullScreen);
-      console.log('Is loginig')
-     // setIsFullScreen(true)
-
-
-     // ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
-
+  
     });
   }, []);
 
@@ -64,33 +63,11 @@ const VideoPlayer = () => {
     setIsPlaying(!isPlaying);
   };
 
-  const onSliderValueChange = (value) => {
-    if (!isPlaying) {
-      videoRef.current.setPositionAsync(value * totalDuration * 1000);
-    }
-  };
-
-  const onFullScreenToggle = async () => {
-    if (isFullScreen) {
-        //console.log(isFullScreen)
-      await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
-    } else {
-      await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
-    }
-    setIsFullScreen(!isFullScreen);
-  };
-
-  const formatTime = (timeInSeconds) => {
-    const minutes = Math.floor(timeInSeconds / 60);
-    const seconds = Math.floor(timeInSeconds % 60);
-    return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-  };
-
   return (
     <View>
       <Video
         ref={videoRef}
-        source={{ uri: 'https://service.besheger.com/movie/video/Found/s1e6.mp4' }}
+        source={{ uri: uri }}
         rate={1.0}
         volume={1.0}
         isMuted={false}
