@@ -142,7 +142,7 @@ export const MovieSerie = () => {
             <MovieCard
               {...item}
               onPressPlay={() =>
-                handlePlayPress(`${baseURL}${item.video_url}`, `${item.titile}`)
+                handlePlayPress(`${baseURL}${item.video_url}`,`${item.movie_description}`)
               }
             />
           )}
