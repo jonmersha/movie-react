@@ -58,8 +58,8 @@ export const styles = StyleSheet.create({
     borderRadius: 8,
     flexDirection: "row",
     overflow: "hidden",
-    margin: 12,
-    //width: "100%",
+    marginTop: 8,
+    marginHorizontal: 12,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -108,5 +108,29 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
+  },
+});
+
+export const homeStyle = StyleSheet.create({
+  appBar: {
+    //height:40,
+    backgroundColor: "white",
+    padding: 20,
+  },
+  body: {
+    flex: 1,
+    backgroundColor: "#fff",
+    paddingHorizontal: 20,
+  },
+  textInput: {
+    backgroundColor: "white",
+    fontSize: 30,
+    elevation: 5,
+  },
+  card: {
+    height: 200,
+    backgroundColor: "white",
+    margin: 5,
+    elevation: 5,
   },
 });

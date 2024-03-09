@@ -32,10 +32,10 @@ export const MovieList = ({ navigation }) => {
     try {
       const response = await fetch(`${baseURL}/movie/get`);
 
-      console.log(response);
+      //console.log(response);
 
       const json = await response.json();
-      console.log(json);
+      //console.log(json);
       setData(json);
     } catch (error) {
       console.error(error);
@@ -93,29 +93,3 @@ export const MovieList = ({ navigation }) => {
     />
   );
 };
-
-const styles = StyleSheet.create({
-  appBar: {
-    //height:40,
-    backgroundColor: "white",
-    padding: 20,
-  },
-  body: {
-    flex: 1,
-    backgroundColor: "#fff",
-    paddingHorizontal: 20,
-  },
-  textInput: {
-    backgroundColor: "white",
-    fontSize: 30,
-    elevation: 5,
-  },
-  card: {
-    height: 200,
-    backgroundColor: "white",
-    margin: 5,
-    elevation: 5,
-  },
-});
-
-//export default MovieList

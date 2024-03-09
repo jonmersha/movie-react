@@ -3,16 +3,16 @@ import React from "react";
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 import { styles } from "../../utils/styles";
 import { baseURL } from "../../utils/constants";
-interface MovieSeries {
-  ID: number;
-  Parent_ID: number;
-  titile: string;
-  movie_description: string;
-  image_url: string;
-  video_url: string;
-  epsode_: number;
-  season_: number;
-}
+// interface MovieSeries {
+//   ID: number;
+//   Parent_ID: number;
+//   titile: string;
+//   movie_description: string;
+//   image_url: string;
+//   video_url: string;
+//   epsode_: number;
+//   season_: number;
+// }
 
 export const MovieCard = ({
   Parent_ID,
