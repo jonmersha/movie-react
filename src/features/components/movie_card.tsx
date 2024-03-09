@@ -33,7 +33,7 @@ export const MovieCard = ({
           style={styles.banner}
         />
         <View>
-          <Text style={styles.title}>{titile}</Text>
+          <Text style={styles.title}>{movie_description}</Text>
           <Text
             style={styles.details}
           >{`Season ${season_}, Episode ${epsode_}`}</Text>

@@ -50,7 +50,7 @@ export const MovieSerie = () => {
       const response = await fetch(`${baseURL}/movie/series/get`);
       const json = await response.json();
       setData(json);
-      handlePlayPress(`${baseURL}${json[0].video_url}`, json[0].titile);
+      handlePlayPress(`${baseURL}${json[0].video_url}`, json[0].movie_description);
     } catch (error) {
       console.error(error);
     } finally {

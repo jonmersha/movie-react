@@ -1,4 +1,4 @@
 export const remote = "https://service.besheger.com";
-export const local = "http://192.168.1.2:3000";
+export const local = "http://10.6.120.114:3000";
 
-export const baseURL = local;
+export const baseURL = remote;
