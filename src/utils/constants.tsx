@@ -1,2 +1,4 @@
-export const baseURL='https://service.besheger.com';
-export const baseURL_remote = 'https://example.com/api';
+export const remote = "https://service.besheger.com";
+export const local = "http://192.168.1.2:3000";
+
+export const baseURL = local;
