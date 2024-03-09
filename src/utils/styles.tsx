@@ -58,8 +58,8 @@ export const styles = StyleSheet.create({
     borderRadius: 8,
     flexDirection: "row",
     overflow: "hidden",
-    margin: 8,
-    width: "100%",
+    margin: 12,
+    //width: "100%",
     shadowColor: "#000",
     shadowOffset: {
       width: 0,

@@ -48,12 +48,9 @@ export const MovieSerie = () => {
   const getSubMovies = async () => {
     try {
       const response = await fetch(`${baseURL}/movie/series/get`);
-
-      console.log(response);
-
       const json = await response.json();
-      console.log(json);
       setData(json);
+      handlePlayPress(`${baseURL}${json[0].video_url}`, json[0].titile);
     } catch (error) {
       console.error(error);
     } finally {
@@ -88,19 +85,12 @@ export const MovieSerie = () => {
     }
   }
   const handlePlayPress = (item, title) => {
-    // baseusrl='';
     setIsLoading(true);
     setSelectedVideo(item);
     setLikes(4);
     setViews(4);
     setVideos(title);
   };
-  // const onBuffer = (bufferStatus) => {
-  //   setIsLoading(bufferStatus.isBuffering);
-  // };
-  // const renderThumbNails = (url: string, calback) => (
-  //   <VideoThumbnail videoUrl={url} onPress={calback} />
-  // );
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
