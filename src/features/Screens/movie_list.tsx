@@ -1,13 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  FlatList,
-  RefreshControl,
-  TouchableOpacity,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
+import { FlatList, RefreshControl, TouchableOpacity } from "react-native";
 import Card from "../../components/movie_card_component";
 import { baseURL } from "../../utils/constants";
 import { useNavigation } from "@react-navigation/native";
@@ -31,11 +23,8 @@ export const MovieList = ({ navigation }) => {
   const getMovies = async () => {
     try {
       const response = await fetch(`${baseURL}/movie/get`);
-
-      //console.log(response);
-
       const json = await response.json();
-      //console.log(json);
+      console.log(json);
       setData(json);
     } catch (error) {
       console.error(error);
@@ -56,15 +45,13 @@ export const MovieList = ({ navigation }) => {
     }, 1000); // Refresh indicator will be visible for at least 1 second
   };
   const handleItemPress = (item: MovieItem) => {
-    // console.log(item.video_url);
     item.is_series
       ? navigation.navigate("MovieSeriesListPage", {
-          paramKey: `${baseURL}${item.ID}`,
+          id: `${item.ID}`,
         })
       : navigation.navigate("MyMoviePlayer", {
           paramKey: `${baseURL}${item.video_url}`,
         });
-    // navigation.navigate();
   };
   const renderCard = ({ item }: { item: MovieItem }) => (
     <TouchableOpacity onPress={() => handleItemPress(item)}>

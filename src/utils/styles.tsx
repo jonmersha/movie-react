@@ -70,8 +70,10 @@ export const styles = StyleSheet.create({
     elevation: 5,
   },
   videoBottom: {
-    //height: 50,
+    height: 70,
     backgroundColor: "black",
+    paddingHorizontal: 50,
+    paddingVertical: 20,
   },
   container: {
     flex: 1,

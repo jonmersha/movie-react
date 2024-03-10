@@ -10,7 +10,7 @@ import {
 import { ResizeMode, Video } from "expo-av";
 import { MovieCard } from "../components/movie_card";
 
-import { baseURL } from "../../utils/constants";
+import { baseURL, device_height, device_width } from "../../utils/constants";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as ScreenOrientation from "expo-screen-orientation";
 import VideoThumbnail from "../../components/video_thumb_nails";
@@ -27,15 +27,15 @@ interface MovieSeries {
   season_: number;
 }
 
-export const MovieSerie = () => {
+export const MovieSerie = ({ route }) => {
   const [isLoading, setIsLoading] = useState(true);
-  const [isPlaying, setIsPlaying] = useState(false);
+  //const [isPlaying, setIsPlaying] = useState(false);
   const [likes, setLikes] = useState(0);
   const [views, setViews] = useState(0);
-  const [progress, setProgress] = useState(0);
-  const [currentTime, setCurrentTime] = useState(0);
+  //const [progress, setProgress] = useState(0);
+  //const [currentTime, setCurrentTime] = useState(0);
   const [totalDuration, setTotalDuration] = useState(0);
-  const [isFullScreen, setIsFullScreen] = useState(true);
+  //const [isFullScreen, setIsFullScreen] = useState(true);
   const [selectedVideo, setSelectedVideo] = useState(null);
   const videoRef = React.useRef(null);
   const [videoDetails, setVideos] = useState("");
@@ -47,20 +47,27 @@ export const MovieSerie = () => {
 
   const getSubMovies = async () => {
     try {
-      const response = await fetch(`${baseURL}/movie/series/get`);
-      const json = await response.json();
-      setData(json);
-      handlePlayPress(
-        `${baseURL}${json[0].video_url}`,
-        json[0].movie_description
-      );
+      const movieID = route.params.id;
+      const response = await fetch(`${baseURL}/movie/sub/${movieID}`);
+      // console.log(response.status);
+      {
+        response.status == 200 ? setJsons(response) : setData([]);
+      }
     } catch (error) {
       console.error(error);
     } finally {
       setLoading(false);
     }
   };
-
+  const setJsons = async (response) => {
+    const json = await response.json();
+    setData(json);
+    if (json.length > 0)
+      handlePlayPress(
+        `${baseURL}${json[0].video_url}`,
+        json[0].movie_description
+      );
+  };
   useEffect(() => {
     getSubMovies();
   }, []);
@@ -81,7 +88,7 @@ export const MovieSerie = () => {
   };
 
   function setOrientation() {
-    if (Dimensions.get("window").height > Dimensions.get("window").width) {
+    if (device_height > device_width) {
       ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
     } else {
       ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
@@ -110,9 +117,7 @@ export const MovieSerie = () => {
             onFullscreenUpdate={setOrientation}
             onLoad={onLoad}
             style={{
-              aspectRatio:
-                Dimensions.get("window").height /
-                Dimensions.get("window").width,
+              aspectRatio: device_height / device_width,
             }}
           />
           {isLoading && (
@@ -122,10 +127,12 @@ export const MovieSerie = () => {
           )}
           <View style={styles.videoBottom}>
             <Text style={text.title}>{videoDetails}</Text>
-            <View style={styles.likesViewsContainer}>
+
+            {/* <View style={styles.likesViewsContainer}>
               <Text style={styles.likesViewsText}>{`Likes:`}</Text>
               <Text style={styles.likesViewsText}>{`Views: `}</Text>
-            </View>
+            </View> */}
+
             <View
               style={{
                 flexDirection: "row",
@@ -136,31 +143,35 @@ export const MovieSerie = () => {
                 paddingHorizontal: 10,
               }}
             >
-              <Text style={styles.text}>Share</Text>
+              {/* <Text style={styles.text}>Share</Text>
               <Text style={styles.text}>Download</Text>
               <Text style={styles.text}>Learn With</Text>
+             */}
             </View>
           </View>
         </View>
-
-        <FlatList
-          data={data}
-          renderItem={({ item }) => (
-            <MovieCard
-              {...item}
-              onPressPlay={() =>
-                handlePlayPress(
-                  `${baseURL}${item.video_url}`,
-                  `${item.movie_description}`
-                )
-              }
-            />
-          )}
-          keyExtractor={(item) => item.ID}
-          refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-          }
-        />
+        {data.length > 0 ? (
+          <FlatList
+            data={data}
+            renderItem={({ item }) => (
+              <MovieCard
+                {...item}
+                onPressPlay={() =>
+                  handlePlayPress(
+                    `${baseURL}${item.video_url}`,
+                    `${item.movie_description}`
+                  )
+                }
+              />
+            )}
+            keyExtractor={(item) => item.ID}
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
+          />
+        ) : (
+          <Text>The Select Movie Series Do not have contents</Text>
+        )}
       </View>
     </SafeAreaView>
   );

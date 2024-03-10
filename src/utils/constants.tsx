@@ -1,7 +1,7 @@
 import { Dimensions } from "react-native";
 
 export const remote = "https://service.besheger.com";
-export const local = "http://10.6.120.114:3000";
+export const local = "http://192.168.1.5:3000";
 
 export const baseURL = remote;
 export const device_height = Dimensions.get("window").height;
