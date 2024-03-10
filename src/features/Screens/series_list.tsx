@@ -15,6 +15,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import * as ScreenOrientation from "expo-screen-orientation";
 import VideoThumbnail from "../../components/video_thumb_nails";
 import { styles, text } from "../../utils/styles";
+import { StyleSheet } from "react-native";
 
 interface MovieSeries {
   ID: string;
@@ -111,14 +112,12 @@ export const MovieSerie = ({ route }) => {
             rate={1.0}
             volume={1.0}
             isMuted={false}
-            resizeMode={ResizeMode.STRETCH}
+            resizeMode={ResizeMode.COVER}
             shouldPlay={true}
             useNativeControls={true}
             onFullscreenUpdate={setOrientation}
             onLoad={onLoad}
-            style={{
-              aspectRatio: device_height / device_width,
-            }}
+            style={mystle.smallScreen}
           />
           {isLoading && (
             <View style={styles.circularProgress}>
@@ -176,3 +175,13 @@ export const MovieSerie = ({ route }) => {
     </SafeAreaView>
   );
 };
+
+const mystle = StyleSheet.create({
+  smallScreen: {
+    aspectRatio: device_height / device_width,
+  },
+  largeScree: {
+    height: device_height / 2,
+    width: "100%",
+  },
+});
