@@ -1,17 +1,16 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { View, Text, TouchableOpacity, ActivityIndicator, StyleSheet, Dimensions } from 'react-native';
-import Slider from '@react-native-community/slider';
-import { ResizeMode, Video } from 'expo-av';
-import { Ionicons, Feather, MaterialCommunityIcons } from '@expo/vector-icons';
-import * as ScreenOrientation from 'expo-screen-orientation';
+import React, { useState, useRef, useEffect } from "react";
+import {
+  View,
+  Text,
+  ActivityIndicator,
+  StyleSheet,
+  Dimensions,
+} from "react-native";
+import { ResizeMode, Video } from "expo-av";
+import * as ScreenOrientation from "expo-screen-orientation";
 
-const VideoPlayer = (
-  {
-    uri,
-    videoRef,
-    loading
-  }) => {
- // const videoRef = useRef(null);
+const VideoPlayer = ({ uri, videoRef, loading }) => {
+  // const videoRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [likes, setLikes] = useState(0);
@@ -23,21 +22,17 @@ const VideoPlayer = (
   setIsLoading(loading);
 
   function setOrientation() {
-    if (Dimensions.get('window').height > Dimensions.get('window').width) {
-        //Device is in portrait mode, rotate to landscape mode.
-        ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
-      }
-      else {
-        //Device is in landscape mode, rotate to portrait mode.
-        ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
-      }
+    if (Dimensions.get("window").height > Dimensions.get("window").width) {
+      //Device is in portrait mode, rotate to landscape mode.
+      ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
+    } else {
+      //Device is in landscape mode, rotate to portrait mode.
+      ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
+    }
   }
 
   useEffect(() => {
-    
-    ScreenOrientation.getOrientationAsync().then((orientation) => {
-  
-    });
+    ScreenOrientation.getOrientationAsync().then((orientation) => {});
   }, []);
 
   const onBuffer = (bufferStatus) => {
@@ -77,48 +72,46 @@ const VideoPlayer = (
         onFullscreenUpdate={setOrientation}
         onBuffer={onBuffer}
         onLoad={onLoad}
-        style={{width: Dimensions.get('window').width, height: 200}}
+        style={{ width: Dimensions.get("window").width, height: 200 }}
       />
 
       {isLoading && (
-        <View style={styles.circularProgress
-             }>
+        <View style={styles.circularProgress}>
           <ActivityIndicator size="large" color="#fff" />
         </View>
       )}
-<View>
-<Text style={styles.text}>Vide title</Text>
-<Text>Vide title</Text>
-    <Text>Vide title</Text>
-</View>
-      
+      <View>
+        <Text style={styles.text}>Vide title</Text>
+        <Text>Vide title</Text>
+        <Text>Vide title</Text>
+      </View>
     </View>
   );
 };
 
 export default VideoPlayer;
-const styles=StyleSheet.create({
-    text:{
-        color: '#FFF',
-        fontSize:20
-    },
-    playerIcon:{
-     position: 'absolute',
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      justifyContent: 'flex-end',
-      alignItems: 'center',
-      padding: 20,
-
-    },
-    circularProgress:{
-        position: 'absolute', 
-        top: 0, 
-        left: 0, 
-        right: 0, 
-        bottom: 0, 
-        justifyContent: 'center', 
-        alignItems: 'center' }
-})
+const styles = StyleSheet.create({
+  text: {
+    color: "#FFF",
+    fontSize: 20,
+  },
+  playerIcon: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: "flex-end",
+    alignItems: "center",
+    padding: 20,
+  },
+  circularProgress: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});

@@ -50,7 +50,10 @@ export const MovieSerie = () => {
       const response = await fetch(`${baseURL}/movie/series/get`);
       const json = await response.json();
       setData(json);
-      handlePlayPress(`${baseURL}${json[0].video_url}`, json[0].movie_description);
+      handlePlayPress(
+        `${baseURL}${json[0].video_url}`,
+        json[0].movie_description
+      );
     } catch (error) {
       console.error(error);
     } finally {
@@ -101,12 +104,16 @@ export const MovieSerie = () => {
             rate={1.0}
             volume={1.0}
             isMuted={false}
-            resizeMode={ResizeMode.COVER}
+            resizeMode={ResizeMode.STRETCH}
             shouldPlay={true}
             useNativeControls={true}
             onFullscreenUpdate={setOrientation}
             onLoad={onLoad}
-            style={{ width: Dimensions.get("window").width, height: 200 }}
+            style={{
+              aspectRatio:
+                Dimensions.get("window").height /
+                Dimensions.get("window").width,
+            }}
           />
           {isLoading && (
             <View style={styles.circularProgress}>
@@ -142,7 +149,10 @@ export const MovieSerie = () => {
             <MovieCard
               {...item}
               onPressPlay={() =>
-                handlePlayPress(`${baseURL}${item.video_url}`,`${item.movie_description}`)
+                handlePlayPress(
+                  `${baseURL}${item.video_url}`,
+                  `${item.movie_description}`
+                )
               }
             />
           )}
